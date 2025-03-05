@@ -1,0 +1,7 @@
+Review 1- Use a meaningful name. d Lacks context. 
+Review 2- Variable name should be ListOfEmployees
+Review 3- Remove data type in the front 
+Review 4- Name agrument names better
+Review 5- Use uniform naming ie. Camelcase  / Pascal and so on
+Review 6- Use startWOrkDate and Modified instead of m
+Review 7- use a datatype for employee phone number. Use Camel case or Pascal. 
