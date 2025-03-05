@@ -1,5 +1,27 @@
 Review 1- 
-Use Switch case
+Avoid Reassigning Parameters
+
+Instead of modifying day, use StringComparison.OrdinalIgnoreCase in comparisons.
+Use a More Readable Data Structure
+
+Instead of multiple if-else statements, use a HashSet<string> for efficient lookups.
+Early Return for Clean Code
+
+Instead of wrapping logic in an if (!string.IsNullOrEmpty(day)), return false early.
+public bool IsShopOpen(string day)
+{
+    if (string.IsNullOrWhiteSpace(day))
+        return false;
+
+    var openDays = new HashSet<string>(StringComparer.OrdinalIgnoreCase) 
+    { 
+        "Friday", "Saturday", "Sunday" 
+    };
+
+    return openDays.Contains(day.Trim());
+}
+
+Review 2-
 
 Unnecessary Nesting – The outer if (!string.IsNullOrEmpty(day)) creates unnecessary nesting. Instead, return false early if the input is null or empty.
 
