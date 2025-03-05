@@ -1,0 +1,15 @@
+Review 1- Violation of SRP. Initialization of session should not happen inside password checking method. 
+Review 2- Name should not be globally declared. Name is getting updated inside the function. it should not do that.
+Review 3- The method name IsDOMNodeNotPresent creates a double negative.If node can be null or empty, consider handling it inside the method to prevent unexpected behavior.
+Review 4-Incorrect String Comparison (Char Instead of String). _type is uninitialized and could be null, leading to a runtime exception.
+Missing default Case
+Review 5- Avoid Using GetType() for Type Checking.The usage of as can return null if the cast fails. It is better to check the result of the as cast to avoid NullReferenceException.
+Return Missing.
+Review 6- Avoid Repetitive String Concatenation. While default arguments like temp = false are fine, it’s better to separate concerns by having a dedicated method for creating temporary files. 
+This improves clarity.
+Ensure Path Exists (if temp is true). If the "./temp/" directory does not exist, an error will occur. It might be helpful to create the directory if it doesn't exist.
+Unclear Method Name (Touch). The method name Touch is not very descriptive. It would be clearer to name it something like CreateFileIfNotExists or CreateOrUpdateFile.
+Review 7- Review8: The method GetInstance() does not specify a return type should be changed to  public static GetInstance() to public static DBConnection GetInstance(). 
+If multiple threads access GetInstance() simultaneously, multiple instances may be created.
+_instance should be readonly if using Lazy<T> for thread safety. The constructor should remain private to prevent instantiation outside the class.
+Review 8- Use Named Parameters for Readability in Calls. Consider Using an Object for Parameter Grouping, Default Values for Optional Parameters.
