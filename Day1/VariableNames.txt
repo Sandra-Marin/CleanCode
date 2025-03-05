@@ -143,21 +143,6 @@ public class Car
 }
 
 
-Review 7-
-Use Culture-Invariant Formatting
-
-The ToString("MMMM dd, yyyy") format depends on the system's culture settings.
-Fix: Use CultureInfo.InvariantCulture to ensure consistent formatting.
-Consider DateOnly (C# 10+)
-
-If you only need the year, month, and day, consider using DateOnly instead of DateTime.
-Use UtcNow.Date If Time Is Not Needed
-
-Since only the date is required, DateTime.UtcNow.Date is a better option to avoid unnecessary time components.
- 
-using System.Globalization;
-
-var ymdStr = DateTime.UtcNow.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);
 
 
 Review 9-
