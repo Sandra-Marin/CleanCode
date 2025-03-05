@@ -1,0 +1,158 @@
+Review 1- 
+Use Switch case
+
+Unnecessary Nesting – The outer if (!string.IsNullOrEmpty(day)) creates unnecessary nesting. Instead, return false early if the input is null or empty.
+
+String Case Handling – The conversion day.ToLower() works, but it's better to use StringComparison.OrdinalIgnoreCase to avoid extra memory allocation.
+
+Redundant Conditions – The multiple if statements for checking "friday", "saturday", and "sunday" can be replaced with a more concise approach (e.g., a set lookup).
+
+Use Readable Data Structures – Using a HashSet<string> improves readability and performance for membership checks.
+
+public long Fibonacci(int n)
+{
+    const int MaxSupportedN = 50;
+
+    if (n < 0)
+        throw new ArgumentException("n must be a non-negative integer.");
+
+    if (n >= MaxSupportedN)
+        throw new Exception($"Fibonacci computation is limited to values less than {MaxSupportedN} due to performance constraints.");
+
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
+
+
+Review 3- 
+Unnecessary Nesting – The method contains deeply nested if conditions that reduce readability. Consider simplifying the logic by using a more direct approach.
+
+Inefficient Recursion – The current implementation has exponential time complexity (O(2^n)) due to redundant calculations. Consider using memoization or an iterative approach for better performance.
+
+Magic Number (50) Without Explanation – The condition if (n < 50) is an arbitrary constraint without context. It would be helpful to define this as a constant with an appropriate name, such as const int MaxSupportedN = 50;.
+
+Unclear Exception Message – Instead of "Not supported", provide a more informative message, such as "Fibonacci computation is limited to values less than 50 due to performance constraints.".
+
+Lack of Input Validation – Negative values for n are not explicitly handled. 
+
+public bool IsShopOpen(string day)
+{
+    if (string.IsNullOrEmpty(day))
+        return false;
+
+    var openDays = new HashSet<string> { "friday", "saturday", "sunday" };
+    return openDays.Contains(day.Trim(), StringComparer.OrdinalIgnoreCase);
+}
+
+
+Review 4- 
+Inefficient Use of Count() in Loop Condition –
+
+l.Count() is called on every iteration, which can be inefficient for collections that do not have constant-time .Count.
+Fix: Use l.Length (since l is an array) or store l.Count() in a variable before the loop.
+Use of var for Collection Type –
+
+While var is useful, explicitly declaring the type (string[]) can improve clarity.
+Avoid Unnecessary Index-Based Iteration –
+
+Since you are only accessing elements sequentially, a foreach loop is cleaner.
+Variable Scope & Naming –
+
+The variable li is only used at the end, making its purpose unclear when reading the code.
+Naming it city (or something meaningful) makes it more readable.
+
+var cities = new[] { "Austin", "New York", "San Francisco" };
+
+foreach (var city in cities)
+{
+    DoStuff();
+    DoSomeOtherStuff();
+
+    // ...
+    // ...
+    // ...
+    // Now it's clear what `city` is for
+    Dispatch(city);
+}
+
+
+Review 5-
+Magic Number (8) –
+
+The number 8 is unclear and makes the code less readable.
+Fix: Use a named constant or an enum to improve clarity.
+Comment Should Be Unnecessary –
+
+If 8 were replaced with a meaningful constant (Admin), the comment wouldn’t be needed.
+
+enum UserRole
+{
+    Guest = 1,
+    User = 2,
+    Moderator = 4,
+    Admin = 8
+}
+
+if (userRole == (int)UserRole.Admin)
+{
+    // Admin-specific logic here
+}
+
+
+Review 6-
+Remove Redundant "Car" Prefix in Property Names
+
+The class is already named Car, so prefixes like CarMake, CarModel, and CarColor are unnecessary.
+Fix: Use Make, Model, and Color instead.
+Consider Read-Only or Constructor Initialization
+
+If properties don’t change after initialization, consider making them immutable with init or setting them via a constructor.
+Ensure Null Safety
+
+If Make, Model, and Color should never be null, consider using required properties (C# 11+) or non-nullable backing fields.
+
+public class Car
+{
+    public required string Make { get; set; }
+    public required string Model { get; set; }
+    public required string Color { get; set; }
+}
+
+
+Review 7-
+Use Culture-Invariant Formatting
+
+The ToString("MMMM dd, yyyy") format depends on the system's culture settings.
+Fix: Use CultureInfo.InvariantCulture to ensure consistent formatting.
+Consider DateOnly (C# 10+)
+
+If you only need the year, month, and day, consider using DateOnly instead of DateTime.
+Use UtcNow.Date If Time Is Not Needed
+
+Since only the date is required, DateTime.UtcNow.Date is a better option to avoid unnecessary time components.
+ 
+using System.Globalization;
+
+var ymdStr = DateTime.UtcNow.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);
+
+
+Review 9-
+Avoid null Default for string Parameters
+
+Instead of string name = null, prefer string? name for clarity in nullable contexts.
+Use ?? Operator for Simplicity
+
+The ternary expression !string.IsNullOrEmpty(name) ? name : "Hipster Brew Co." can be replaced with ?? for better readability.
+Consider string.IsNullOrWhiteSpace Instead of IsNullOrEmpty
+
+This ensures that strings containing only spaces are also treated as empty.
+
+public void CreateMicrobrewery(string? name = null)
+{
+    var breweryName = string.IsNullOrWhiteSpace(name) ? "Hipster Brew Co." : name;
+    // ...
+}
+
+
